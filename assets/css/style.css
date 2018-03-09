@@ -1,0 +1,87 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
+@font-face {
+    font-family: "myfont";
+    src: url("../images/Legothick.ttf");
+}
+
+body {
+    font-family: "myfont";
+    color: white;
+    background-image: url("../images/grey.jpg");
+}
+
+.jumbotron {
+    background-image: url("../images/background.jpg");
+    height: 325px;
+    background-position: center;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: scroll;
+    font-family: "myfont";
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.877);
+    width: 650px;
+    padding: 10px;
+    border-radius: 14px;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+
+.info {
+    border: 10px solid transparent;
+    padding: 15px;
+    -webkit-border-image: url(../images/legoFrame.png) 30 stretch;
+    /* border-image:  url(../images/legoFrame.png) 30 stretch; */
+    background-color: rgba(0, 0, 0, 0.877);
+    align-items: center;
+}
+
+#results {
+    height: 800px;
+}
+
+h2 {
+    margin-top: 75px;
+    margin-bottom: 20px;
+    margin-left: 39%;
+}
+
+#current {
+    margin-left: 30%;
+}
+
+.add {
+    margin-top: 43px;
+    margin-bottom: 100px;
+}
+
+#addTrains {
+    height: 800px;
+}
+
+#addHeader {
+    margin-bottom: 35px;
+}
+
+.formDiv {
+    width: 930px;
+    margin-left: 98px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inputDiv {
+    margin-bottom: 35px;
+}
+
+.btn {
+    float: right;
+    width: 120px;
+    margin-top: 5px;
+}
