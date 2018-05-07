@@ -10,6 +10,8 @@ $(document).ready(function () {
   };
   firebase.initializeApp(config);
 
+  var database = firebase.database()
+
       // Capture Button Click
       $("#submit").on("click", function (event) {
         event.preventDefault();
@@ -18,29 +20,47 @@ $(document).ready(function () {
         var input2 = $("#destination").val().trim();
         var input3 = $("#firstTrain").val().trim();
         var input4 = $("#frequency").val().trim();
-        var input5 = moment().diff(moment('input3','MM/DD/YYYY'), 'months')
-         console.log(input5)
+        // var input5 = moment().diff(moment.unix(input3, "X"), "months"); 
         $("#trainname").val("");
         $("#destination").val("");
         $("#firstTrain").val("");
         $("#frequency").val("");
         database.ref().push({
             name: input1,
-            role: input2,
-            date: input3,
-            rate: input4,
-            worked: input5,
+            destination: input2,
+            firstTrain: input3,
+            frequency: input4,
+            // time: input5,
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         });
+
+        database.ref().on("child_added", function(childSnapshot, prevChildKey){
+              // Store everything into a variable.
+            var trainName = childSnapshot.val().name;
+            var trainDestination = childSnapshot.val().destination;
+            var trainFirst = childSnapshot.firstTrain;
+            var trainFrequency = childSnapshot.val().frequency;
+            var trainAdded = childSnapshot.val().dateAdded;
+            // console.log(trainTime)
+            console.log(trainFirst)
+            console.log(trainAdded)
+
+            var trainConverted = moment(trainFirst, "hh:mm a").subtract("1, years")
+            var difference = moment().diff(moment(trainConverted), "minutes")
+            var currentTime= moment()
+            var remainder = difference % trainFrequency
+            var minutesUntil = trainFrequency - remainder
+            var nextTrain = moment().add(minutesUntil, "minutes").format("hh:mm")
         // Output all of the new information into the relevant HTML sections
-        $("#trainSchedule").append("<tr><th>" + input1 + "</th><th>" + input2 + "</th><th>" + input3 + "</th><th>" + input5 + "</th><th>" + input4 + "</th><th>" + input4 + "</th></tr>")
-        database.ref().orderByChild('rate').limitToLast(1).on('child_added', function(snap){
-            console.log(snap.val())
-            })
+        $("#trainSchedule").append("<tr><th>" + trainName + "</th><th>" + trainDestination + "</th><th>" + trainFrequency + "</th><th>" + nextTrain + "</th><th>" + minutesUntil + "</th></tr>")
+
+        })
         return false
     })
 
     database.ref().on("value", function(snap){
+        // for var i
+        $("#trainSchedule").append("<tr><th>" + snap.val().name + "</th><th>" + snap.val().frequency + "</th><th>" + snap.val().name + "</th><th>" + snap.val().name + "</th><th>" + snap.val().name + "</th></tr>")
         console.log(snap.val())
     })
 })
